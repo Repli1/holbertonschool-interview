@@ -1,12 +1,12 @@
 #!/usr/bin/python3
-"""Function that determines if a configuration boxes and keys can be totally opened"""
+"""Function that determines if a configuration can be totally opened"""
 
 
 def canUnlockAll(boxes):
     def recursion(box):
         opened_boxes[box] = True
         for key in boxes[box]:
-            if not opened_boxes[key]:
+            if not opened_boxes[key] and key < len(boxes):
                 recursion(key)
 
     opened_boxes = [False] * len(boxes)
