@@ -6,7 +6,7 @@ def canUnlockAll(boxes):
     def recursion(box):
         opened_boxes[box] = True
         for key in boxes[box]:
-            if not opened_boxes[key] and key < len(boxes):
+            if key < len(boxes) and not opened_boxes[key]:
                 recursion(key)
 
     opened_boxes = [False] * len(boxes)
