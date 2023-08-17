@@ -1,4 +1,6 @@
 #!/usr/bin/python3
+"""Function that determines if a configuration boxes and keys can be totally opened"""
+
 
 def canUnlockAll(boxes):
     def recursion(box):
