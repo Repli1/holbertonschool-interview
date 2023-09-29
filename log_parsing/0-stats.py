@@ -1,7 +1,5 @@
 #!/usr/bin/python3
-"""
-Log Parsing
-"""
+""" Log Parsing """
 
 import re
 
@@ -18,7 +16,7 @@ while(1):
             line_as_list = current_line.split()
             if line_as_list[7] in codes_dict.keys():
                 line_counter += 1
-                codes_dict[line_as_list[7]] +=1
+                codes_dict[line_as_list[7]] += 1
                 total_size += int(line_as_list[8])
         print("File size: " + str(total_size))
         for code in codes_dict.keys():
