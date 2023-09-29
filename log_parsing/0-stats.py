@@ -1,5 +1,7 @@
 #!/usr/bin/python3
-"""Program that parses logs from another file and outputs metrics"""
+"""
+Program that parses logs from another file and outputs metrics
+"""
 
 
 codes_dict = {"200": 0, "301": 0, "400": 0, "401": 0, "403": 0, "404": 0, "405": 0, "500": 0}
