@@ -36,7 +36,6 @@ int is_palindrome(listint_t **head)
 	while (j > 0)
 	{
 		j--;
-		printf("The number is: %i\n", contents[j]);
 		inverse[i] = contents[j];
 		i++;
 	}
