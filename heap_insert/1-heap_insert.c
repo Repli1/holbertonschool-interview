@@ -98,10 +98,7 @@ heap_t *search_parent(heap_t *root, heap_t *current, heap_t *buffer)
 		buffer = search_parent(root, current->right, buffer);
 	}
 	if (check_node(root, current) == 1)
-	{
-		printf("Nodo valido: %i\n", current->n);
 		return current;
-	}
 	return buffer;
 }
 
