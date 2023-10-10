@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include <stdlib.h>
 #include "binary_trees.h"
 
@@ -9,18 +10,20 @@
  */
 heap_t *heap_insert(heap_t **root, int value)
 {
-	heap_t *new = malloc(sizeof(heap_t));
-	heap_t *valid;
-	heap_t *buffer = malloc(sizeof(heap_t));
+	heap_t *new = malloc(sizeof(heap_t)), *valid, *buffer = NULL;
+	int i = 0;
 
-	buffer = NULL;
 	if (new == NULL)
 		return (NULL);
 	new->n = value;
 	new->left = NULL;
 	new->right = NULL;
+	new->parent = NULL;
 	if (*root == NULL)
+	{
+		*root = new;
 		return (new);
+	}
 	valid = *root;
 	if (is_complete(*root) == 1)
 	{
@@ -34,6 +37,18 @@ heap_t *heap_insert(heap_t **root, int value)
 		valid->left = new;
 	else
 		valid->right = new;
+	buffer = new;
+	while (buffer->parent)
+	{
+		if (buffer->parent->n < buffer->n)
+		{
+			i = buffer->n;
+			buffer->n = buffer->parent->n;
+			buffer->parent->n = i;
+			new = buffer->parent;
+		}
+		buffer = buffer->parent;
+	}
 	return (new);
 }
 
@@ -48,7 +63,7 @@ int get_height(heap_t *root)
 
 int is_complete(heap_t *root)
 {
-	int depth = 0;
+	int depth = 1;
 	heap_t *current = root;
 
 	if (root == NULL)
@@ -72,7 +87,7 @@ int get_depth(heap_t *node)
 	return 1;
 }
 
-heap_t *search_parent(heap_t *current, heap_t *root, heap_t *buffer)
+heap_t *search_parent(heap_t *root, heap_t *current, heap_t *buffer)
 {
 	if (current->left && buffer == NULL)
 	{
@@ -83,7 +98,10 @@ heap_t *search_parent(heap_t *current, heap_t *root, heap_t *buffer)
 		buffer = search_parent(root, current->right, buffer);
 	}
 	if (check_node(root, current) == 1)
+	{
+		printf("Nodo valido: %i\n", current->n);
 		return current;
+	}
 	return buffer;
 }
 
@@ -91,9 +109,9 @@ int check_node(heap_t *root, heap_t *node)
 {
 	if (node == NULL)
 		return -1;
-	if (node->left && node->right == NULL)
+	if (node->left && (node->right == NULL))
 		return 1;
-	if (get_height(root) != get_depth(node))
+	if (get_height(root) != get_depth(node) && !(node->left || node->right))
 		return 1;
 	return 0;
 }
